@@ -8,43 +8,27 @@ int main()
     string a, b;
     while(cin >> a >> b)
     {
-        string tmp1, tmp2;
-        bool is = false;
         int maxa = 0, maxb = 0;
         if(a.find(b) != string::npos) cout << a << '\n';
         else
         {
-            for(int i = 0; i < a.size(); i++)
+            string res1, res2;
+            int posa = 0, posb = 0;
+            for(int i = 1; i < b.size(); i++)
             {
-                for(int j = b.size()-1; j >= 0; j--)
-                {
-                    tmp1 += a[i], tmp2 += b[j];
-                    if(tmp1 == tmp2 && !is) maxa++;
-                    else {
-                        is = true;
-                        break;
-                    }
-                }
-                if(is) break;
+                if(a.substr(0, i) != b.substr(b.size()-i)) continue;
+                maxa = i;
+                posa = b.size()-maxa;
             }
-            tmp1 = "", tmp2 = "", is = false;
-            for(int i = a.size()-1; i >= 0; i--)
+            for(int i = 1; i < b.size(); i++)
             {
-                for(int j = 0; j < b.size(); j++)
-                {
-                    tmp1 += a[i], tmp2 += b[j];
-                    if(tmp1 == tmp2 && !is) maxb++;
-                    else {
-                        is = true;
-                        break;
-                    }
-                }
-                if(is) break;
+                if(b.substr(0, i) != a.substr(a.size()-i)) continue;
+                maxb = i;
+                posb = i;
             }
-            if(maxa < maxb) cout << b.substr(0, b.size()-maxa) << a << '\n';
-            else if(maxb < maxa) cout << a << b.substr(maxb-1, b.size()-maxb) << '\n';
-            else if(maxb != 0) cout << a << b.substr(maxb-1, b.size()-maxb) << '\n';
-            else cout << a << b << '\n'
+            if(maxa > maxb) cout << b.substr(0, posa) << a << '\n';
+            else if(maxb >= maxa) cout << a << b.substr(posb) << '\n';
+            else cout << a << b << '\n';
         }
     }
 }
