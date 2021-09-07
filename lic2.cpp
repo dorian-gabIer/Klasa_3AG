@@ -6,7 +6,11 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
     int c = 0, in;
-    cin >> oct >> in;
-    cout << in;
+    while(cin >> oct >> in)
+    {
+        string s = to_string(in);
+        if(s.front() == s.back()) c++;
+    }
+    cout << c;
     return 0;
 }
