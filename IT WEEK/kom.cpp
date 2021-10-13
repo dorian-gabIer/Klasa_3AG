@@ -1,41 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
-int mincost(int s, int d, bool visited[], int graph[100][100], int V)
+int n, graph[105][105], visited[105];
+void mincost (int x)
 {
-    if (s == d) return 0;
-    visited[s] = 1;
-    int ans = INT_MAX;
-    for (int i = 0; i < V; i++)
+    for (int i = 1; i <= n; i++)
     {
-        if (graph[s][i] != INT_MAX && !visited[i])
+        if (graph[x][i] > 0 && (visited[i] == 0 || visited[i] > visited[x] + graph[x][i]))
         {
-            int curr = mincost(i, d, visited, graph, V);
-            if (curr < INT_MAX) ans = min(ans, graph[s][i] + curr);
+            visited[i] = visited[x] + graph[x][i];
+            mincost(i);
         }
     }
-    visited[s] = 0;
-    return ans;
 }
-int main()
+int main ()
 {
-    int V, E, a, b, w, s, t;
-    cin >> V >> E;
-    int graph[100][100];
-    bool visited[100] = { 0 };
-    for (int i = 0; i < V; i++) for (int j = 0; j < V; j++) graph[i][j] = INT_MAX;
-    for (int i = 0; i < E; i++)
+    int a, b, s, d, m;
+    cin >> n >> m;
+    for (int i = 1; i <= m; i++)
     {
-        cin >> a >> b >> w;
-        graph[a][b] = w;
-        graph[b][a] = w;
+        cin >> a >> b >> graph[a][b];
+        graph[b][a] = graph[a][b];
     }
-    cin >> s >> t;
+    cin >> s >> d;
     visited[s] = 1;
-    int res = mincost(s, t, visited, graph, V);
-    if(res <= 5) cout << 5;
-    else if(res <= 10) cout << 10;
-    else if(res <= 20) cout << 20;
-    else if(res <= 40) cout << 40;
-    else cout << "IDZ  PIECHOTA.  NIE  MASZ PIENIEDZY";
-    return 0;
+    mincost(s);
+    if (visited[d] - 1 <= 5) cout << 5;
+    else if (visited[d] - 1 <= 10) cout << 10;
+    else if (visited[d] - 1 <= 20) cout << 20;
+    else if (visited[d] - 1 <= 40) cout << 40;
+    else cout << "IDZ PIECHOTA. NIE MASZ PIENIEDZY";
 }
