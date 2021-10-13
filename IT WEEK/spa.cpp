@@ -1,14 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
+int pieczec[1000][1000], org[1000][1000];
 int main()
 {
-    int pieczec[1005][1005], org[1005][1005], t, n, m, a, b;
+    int t, n, m, a, b;
     char tmp;
     cin >> t;
     for(int k = 0; k < t; k++)
     {
         for(int c = 0; c < 1000; c++) for(int d = 0; d < 1000; d++) pieczec[c][d] = 0, org[c][d] = 0;
-        vector <int> kordyx, kordyy;
+        vector <int> kordyx;
+        vector <int> kordyy;
         cin >> n >> m >> a >> b;
         for(int i = 0; i < n; i++)
         {
